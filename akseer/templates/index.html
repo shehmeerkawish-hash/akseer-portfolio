@@ -1,0 +1,250 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+/* ================= HERO / PROFILE BACKGROUND ================= */
+.hero-premium{
+    background:
+        radial-gradient(circle at center, rgba(212,175,55,.15), transparent 45%),
+        linear-gradient(180deg,#0C1224,#0B0F1A);
+    padding:100px 0 120px;
+    color:#EAEAEA;
+    text-align:center;
+}
+
+/* ================= CONTENT BACKGROUND ================= */
+.content-bg{
+    background:linear-gradient(180deg,#0B0F1A,#070A12);
+    padding:80px 0;
+}
+
+/* ================= PROFILE ================= */
+.profile-dp{
+    width:185px;
+    height:185px;
+    border-radius:50%;
+    object-fit:cover;
+    border:4px solid #D4AF37;
+    box-shadow:0 0 60px rgba(212,175,55,.6);
+    transition:.5s;
+}
+.profile-dp:hover{
+    transform:scale(1.1);
+    box-shadow:0 0 90px rgba(212,175,55,.9);
+}
+
+.name{
+    font-size:44px;
+    font-weight:800;
+    margin-top:22px;
+    color:#D4AF37;
+    letter-spacing:1px;
+}
+.bio{
+    max-width:700px;
+    margin:14px auto 0;
+    color:#B8BCC8;
+    font-size:18px;
+    line-height:1.6;
+}
+
+/* ================= STATUS BADGES ================= */
+.status-badges{
+    margin-top:22px;
+}
+.status-badges span{
+    display:inline-block;
+    padding:8px 18px;
+    margin:6px;
+    border-radius:20px;
+    border:1px solid #D4AF37;
+    color:#D4AF37;
+    font-size:14px;
+    font-weight:600;
+    background:rgba(212,175,55,.08);
+}
+
+/* ================= SECTION TITLE ================= */
+.section-title{
+    color:#D4AF37;
+    font-size:30px;
+    font-weight:800;
+    margin-bottom:30px;
+    letter-spacing:1.2px;
+}
+
+/* ================= GLASS CARD ================= */
+.card-box{
+    background:rgba(255,255,255,.045);
+    backdrop-filter:blur(14px);
+    padding:28px;
+    border-radius:22px;
+    border:1px solid rgba(255,255,255,.08);
+    margin-bottom:40px;
+    transition:.4s;
+}
+.card-box:hover{
+    transform:translateY(-10px);
+    border-color:#D4AF37;
+    box-shadow:0 25px 50px rgba(0,0,0,.55);
+}
+
+/* ================= SKILLS ================= */
+.skill-chip{
+    background:linear-gradient(135deg,#D4AF37,#9E7C19);
+    padding:11px 22px;
+    border-radius:26px;
+    margin:7px;
+    display:inline-block;
+    color:#0B0F1A;
+    font-weight:700;
+    transition:.35s;
+}
+.skill-chip:hover{
+    transform:translateY(-6px);
+    box-shadow:0 15px 30px rgba(212,175,55,.45);
+}
+
+/* ================= EDUCATION ================= */
+.edu-item{
+    padding:18px;
+    border-radius:16px;
+    background:rgba(255,255,255,.035);
+    margin-bottom:16px;
+    transition:.3s;
+}
+.edu-item:hover{
+    background:rgba(212,175,55,.1);
+    transform:scale(1.04);
+}
+/* ================= HOBBIES ================= */
+.hobby-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:16px;
+}
+.hobby-card{
+    padding:18px;
+    border-radius:16px;
+    background:rgba(255,255,255,.045);
+    border:1px solid rgba(255,255,255,.08);
+    text-align:center;
+    font-weight:600;
+    transition:.35s;
+    cursor:pointer;
+}
+.hobby-card:hover{
+    transform:translateY(-8px) scale(1.05);
+    border-color:#D4AF37;
+    color:#D4AF37;
+    box-shadow:0 18px 35px rgba(212,175,55,.35);
+}
+
+/* ================= PROJECTS ================= */
+.project-card{
+    position:relative;
+    overflow:hidden;
+    border-radius:22px;
+}
+.project-img{
+    width:100%;
+    height:260px;
+    object-fit:cover;
+    transition:.6s;
+}
+.project-card:hover .project-img{
+    transform:scale(1.15);
+}
+.project-overlay{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to top,rgba(0,0,0,.9),transparent 65%);
+    opacity:0;
+    display:flex;
+    align-items:flex-end;
+    padding:24px;
+    transition:.4s;
+}
+.project-card:hover .project-overlay{
+    opacity:1;
+}
+.project-overlay h4{
+    color:#D4AF37;
+    margin:0;
+}
+.project-overlay p{
+    color:#ccc;
+    font-size:14px;
+}
+</style>
+
+<!-- ================= HERO ================= -->
+<section class="hero-premium">
+    <img src="{{ url_for('static', filename=profile.profile_img) }}" class="profile-dp">
+    <div class="name">{{ profile.name }}</div>
+    <div class="bio">{{ profile.bio }}</div>
+
+    <div class="status-badges">
+        <span>AI & Flask Developer</span>
+        <span>Portfolio Project</span>
+        <span>Open to Internships</span>
+    </div>
+</section>
+
+<!-- ================= CONTENT ================= -->
+<section class="content-bg container">
+
+<!-- SKILLS -->
+<h2 class="section-title">⚡ Skills</h2>
+<div class="card-box">
+    {% for s in skills %}
+        <span class="skill-chip">{{ s }}</span>
+    {% endfor %}
+</div>
+
+<!-- EDUCATION -->
+<h2 class="section-title">🎓 Education</h2>
+<div class="card-box">
+    {% for e in education %}
+    <div class="edu-item">
+        <b>{{ e.degree }}</b> — {{ e.college or e.school }}
+        <span style="color:#4DA3FF">({{ e.year }})</span>
+    </div>
+    {% endfor %}
+</div>
+<!-- ================= HOBBIES ================= -->
+<h2 class="section-title">🎯 Hobbies</h2>
+<div class="card-box">
+    <div class="hobby-grid">
+        {% for h in hobbies %}
+            <div class="hobby-card">
+                🎯 {{ h }}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- PROJECTS -->
+<h2 class="section-title">🚀 Projects</h2>
+<div class="row">
+{% for p in projects %}
+<div class="col-md-6">
+    <div class="card-box project-card">
+
+        <img src="{{ url_for('static', filename=p.image) }}" class="project-img">
+
+        <div class="project-overlay">
+            <div>
+                <h4>{{ p.title }}</h4>
+                <p>{{ p.description }}</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endfor %}
+</div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{{ title if title else "Akseer Portfolio" }}</title>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- AOS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+
+  <!-- Particles.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+
+<style>
+*{font-family:"Poppins";scroll-behavior:smooth;transition:0.3s;}
+body{background:#1a1a1a;
+  color:#eaeaea;margin:0;}
+
+/* ================= NAVBAR ================= */
+nav.custom-nav{
+    background:#0d0d0d;padding:18px 45px;
+    display:flex;justify-content:space-between;align-items:center;
+    border-bottom:1px solid #3c3c3c;box-shadow:0 0 18px rgba(0,0,0,0.65);
+    position:fixed;top:0;left:0;right:0;z-index:999;
+}
+nav ul{display:flex;gap:35px;list-style:none;margin:0;}
+nav ul li a{
+    color:white;font-size:18px;text-decoration:none;position:relative;
+}
+nav ul li a:hover{color:#d4af37;text-shadow:0 0 10px #d4af37;}
+.brand{font-size:30px;font-weight:800;color:#d4af37}
+
+/* ================= HERO ================= */
+.hero-banner{
+    height:420px;position:relative;overflow:hidden;
+    background:url('https://images.unsplash.com/photo-1677442136019-21780ecad995') center/cover fixed;
+    display:flex;justify-content:center;align-items:center;
+    margin-top:78px;
+}
+.hero-glass{
+    position:absolute;width:78%;height:72%;
+    backdrop-filter:blur(20px);
+    border-radius:20px;border:1px solid rgba(255,255,255,0.25);
+    box-shadow:0 0 40px rgba(212,175,55,.45);
+    animation:float 5s infinite alternate;
+}
+@keyframes float{from{transform:translateY(-18px);}to{transform:translateY(18px);}}
+
+.hero-text{z-index:10;text-align:center;color:white;}
+.hero-text h1{
+    font-size:57px;font-weight:800;
+    background:linear-gradient(90deg,#d4af37,#fff7a0,#d4af37);
+    -webkit-background-clip:text;color:transparent;
+    background-size:350%;animation:goldMove 6s linear infinite;
+}
+@keyframes goldMove{0%{background-position:0;}50%{background-position:100%;}100%{background-position:0;}}
+#typing{font-size:22px;margin-top:8px}
+
+/* Particles */
+#particles-js{
+    position:absolute;width:100%;height:100%;
+    z-index:1;opacity:.35;
+}
+
+/* ================= CONTENT ================= */
+.container{max-width:1120px;margin:auto;padding:30px 20px;}
+
+/* ================= FOOTER ================= */
+footer{
+    background:#111;color:#aaa;text-align:center;
+    padding:15px 0;margin-top:40px;border-top:1px solid #333;
+}
+
+/* ================= FLOATING SOCIAL BAR (REAL SVG ICONS) ================= */
+.social-bar{
+    position:fixed;right:18px;top:48%;
+    display:flex;flex-direction:column;gap:12px;z-index:999;
+}
+.social-bar a{
+    width:46px;height:46px;
+    display:flex;align-items:center;justify-content:center;
+    background:#111;border-radius:10px;
+    border:1px solid #444;
+    transition:.3s;
+}
+.social-bar a:hover{
+    transform:scale(1.15);
+    box-shadow:0 0 18px currentColor;
+}
+.ig{color:#E1306C;}
+.git{color:#f5f5f5;}
+.ln{color:#0A66C2;}
+@media(max-width:900px){.social-bar{display:none}}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="custom-nav">
+    <div class="brand">AKSEER</div>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/blogs">Blogs</a></li>
+        <li><a href="/add-blog">Add Blog</a></li>
+    </ul>
+</nav>
+
+<!-- HERO -->
+<header class="hero-banner">
+    <div id="particles-js"></div>
+    <div class="hero-glass"></div>
+
+    <div class="hero-text" data-aos="zoom-in">
+        <h1>{{ title if title else "AKSEER" }}</h1>
+        <p id="typing"></p>
+    </div>
+</header>
+
+<!-- PAGE CONTENT -->
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
+
+<!-- FLOATING SOCIAL BAR -->
+<div class="social-bar">
+
+  <!-- Instagram -->
+  <a href="https://www.instagram.com/its_me_Akseer_07" target="_blank" class="ig">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm10 2c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3h10zM12 7.5A4.5 4.5 0 1 0 12 16a4.5 4.5 0 0 0 0-8.5z"/>
+    </svg>
+  </a>
+
+  <!-- GitHub -->
+  <a href="https://github.com/" target="_blank" class="git">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 2C6.5 2 2 6.6 2 12.3c0 4.5 2.9 8.3 6.8 9.6.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.2-3.4-1.2-.5-1.3-1.2-1.6-1.2-1.6-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 .1.8-.6 1.7-1.1-.3-.7-.6-1.2-.6-1.9 0-1.6 1.1-2.8 2.8-2.8z"/>
+    </svg>
+  </a>
+
+  <!-- LinkedIn -->
+  <a href="https://www.linkedin.com/" target="_blank" class="ln">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M4.98 3.5C4.98 4.9 3.88 6 2.5 6S0 4.9 0 3.5 1.12 1 2.5 1s2.48 1.1 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.1c.5-1 1.8-2.2 3.7-2.2 4 0 4.7 2.6 4.7 6V24h-4v-7.4z"/>
+    </svg>
+  </a>
+
+</div>
+
+<footer>
+    © Akseer • Flask Portfolio
+</footer>
+
+<!-- JS -->
+<script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>AOS.init({duration:1000,once:true});</script>
+
+<script>
+particlesJS("particles-js",{
+  particles:{number:{value:60},size:{value:2},color:{value:"#d4af37"}},
+  interactivity:{events:{onhover:{enable:true,mode:"repulse"}}}
+});
+
+const words=["AI & ML Developer","Flask Backend Developer","Tech Explorer"];
+let i=0,j=0;
+const t=document.getElementById("typing");
+(function type(){
+  if(j<=words[i].length){t.innerText=words[i].slice(0,j++);}
+  else{setTimeout(()=>{j=0;i=(i+1)%words.length;},1200);}
+  setTimeout(type,90);
+})();
+</script>
+
+</body>
+</html>

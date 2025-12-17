@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+.page-box{
+    background:#111;padding:30px;border-radius:15px;margin-top:25px;
+    border:1px solid #333;box-shadow:0 0 25px rgba(212,175,55,0.25);
+}
+.detail-img{
+    width:100%;border-radius:12px;border:1px solid #444;margin-bottom:20px;
+}
+.feature-tag{
+    background:#18d596;padding:8px 15px;border-radius:8px;
+    margin:5px;color:black;font-weight:600;display:inline-block;
+}
+</style>
+
+<div class="page-box" data-aos="fade-up">
+
+    <h1 style="color:#d4af37;font-weight:800">{{ project.title }}</h1>
+    <p style="color:#ccc;margin-bottom:15px;">{{ project.description }}</p>
+
+    {% if project.image %}
+    <img src="/static/uploads/{{ project.image }}" class="detail-img" data-aos="zoom-in">
+    {% endif %}
+
+    <h3 style="margin-top:20px;color:#18d596">🔧 Features Included</h3>
+    <div>
+        {% for f in project.features %}
+        <span class="feature-tag" data-aos="zoom-in" data-aos-delay="{{ loop.index * 80 }}">
+            {{ f }}
+        </span>
+        {% endfor %}
+    </div>
+
+    <a href="/" class="btn btn-outline-light mt-4">⬅ Back to Home</a>
+
+</div>
+{% endblock %}

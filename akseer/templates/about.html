@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    /* White Background + Black Text */
+    body { background:#ffffff !important; color:#000 !important; }
+
+    .profile-box{
+        background:linear-gradient(145deg,#e7f6f6,#d8efef);
+        padding:40px;
+        border-radius:18px;
+        text-align:center;
+        margin-bottom:35px;
+        border:1px solid #b8dede;
+        box-shadow:0 0 35px rgba(24,213,150,0.10);
+    }
+
+    .profile-img{
+        width:150px;height:150px;border-radius:50%;
+        border:4px solid #18d596;object-fit:cover;
+        margin-bottom:12px;transition:.3s;
+    }
+    .profile-img:hover{ transform:scale(1.05); }
+
+    .card-box{
+        background:#f7f7f7;
+        padding:26px;border-radius:15px;
+        margin-bottom:28px;
+        border:1px solid #d2d2d2;
+        box-shadow:0 0 15px rgba(0,0,0,0.1);
+        transition:.3s;
+        color:#181818;
+    }
+    .card-box:hover{
+        transform:scale(1.02);
+        box-shadow:0 0 25px rgba(24,213,150,0.15);
+    }
+
+    .heading{
+        font-size:23px;
+        font-weight:700;
+        color:#18d596;
+        margin-bottom:15px;
+        letter-spacing:0.8px;
+    }
+
+    .skill-tag{
+        background:#e4fffa;
+        border:1px solid #18d596;
+        color:#067a63;
+        padding:7px 13px;
+        display:inline-block;
+        border-radius:8px;margin:5px;
+        transition:.3s;
+    }
+    .skill-tag:hover{ background:#18d596;color:white; }
+
+    .contact-details p{
+        font-size:17px;margin:4px 0;
+        color:#222;
+    }
+</style>
+
+
+<!-- 🔥 PROFILE -->
+<div class="profile-box">
+    <img src="https://i.postimg.cc/1tG0Ffcz/default-profile.jpg" class="profile-img">
+    <h2 style="font-weight:700;">{{ profile.name }}</h2>
+    <p style="font-size:18px;color:#444;">AI + Flask Dev | Tech Explorer | Future Engineer</p>
+</div>
+
+
+<!-- ⭐ ABOUT -->
+<div class="card-box">
+    <div class="heading">👤 About Me</div>
+    <p>I am <b>{{ profile.name }}</b>, <b>{{ profile.age }}</b> years old developer from {{ profile.location }}.</p>
+    <p>I love building web apps, exploring AI, experimenting with UI design and improving everyday through learning.</p>
+</div>
+
+
+<!-- 💡 SKILLS -->
+<div class="card-box">
+    <div class="heading">💡 My Skills</div>
+    {% for skill in skills %}
+    <span class="skill-tag">{{ skill }}</span>
+    {% endfor %}
+</div>
+
+
+<!-- 🚀 STRENGTHS -->
+<div class="card-box">
+    <div class="heading">🚀 Strengths & Interests</div>
+    <ul>
+        <li>Quick learner + adaptive thinker</li>
+        <li>Good problem-solving ability</li>
+        <li>Interest in AI, ML & Web Engineering</li>
+        <li>UI/UX vision and creative mind</li>
+        <li>Enjoys working on real projects</li>
+    </ul>
+</div>
+
+
+<!-- 🎓 EDUCATION -->
+<div class="card-box">
+    <div class="heading">🎓 Education</div>
+    <ul>
+        {% for edu in education %}
+        <li><b>{{ edu.degree }}</b> — {{ edu.college or edu.school }} ({{ edu.year }})</li>
+        {% endfor %}
+    </ul>
+</div>
+
+
+<!-- ❤️ PASSION -->
+<div class="card-box">
+    <div class="heading">❤️ Why I Love Tech</div>
+    <p>Because I can turn an idea into a real working system.  
+       I want to build solutions that help people, innovate in AI, and grow as a developer.
+    </p>
+</div>
+
+
+<!-- 📩 CONTACT -->
+<div class="card-box contact-details">
+    <div class="heading">📩 Contact Me</div>
+
+    <p><b>Email:</b> {{ contact.email }}</p>
+    <p><b>Phone:</b> {{ contact.phone }}</p>
+    <p><b>Instagram:</b> {{ contact.instagram }}</p>
+    <p><b>Location:</b> {{ contact.location }}</p>
+
+    <br>
+    <a href="mailto:{{ contact.email }}" class="btn btn-success">📧 Email</a>
+    <a href="tel:{{ contact.phone }}" class="btn btn-outline-dark">📞 Call</a>
+    <a href="https://instagram.com/its_me_Akseer_07" target="_blank" class="btn btn-outline-success">📸 Instagram</a>
+</div>
+
+{% endblock %}
