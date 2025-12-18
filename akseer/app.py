@@ -2,15 +2,15 @@ from flask import Flask, render_template, request, redirect, url_for
 import os
 from werkzeug.utils import secure_filename
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="static")
 
 # ===================== IMAGE SETTINGS ===================== #
-UPLOAD_FOLDER = os.path.join("static", "uploads")
+UPLOAD_FOLDER = os.path.join(app.static_folder, "uploads")
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "webp"}
 
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
-# ✅ Ensure upload folder exists (VERY IMPORTANT for Render)
+# Ensure upload folder exists (important for Render)
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 
@@ -139,5 +139,6 @@ def upload_project(id):
     return redirect(url_for("home"))
 
 
-# ❌ DO NOT use app.run() on Render
-# gunicorn will handle running the app
+# ===================== REQUIRED FOR RENDER ===================== #
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=10000, debug=False)
