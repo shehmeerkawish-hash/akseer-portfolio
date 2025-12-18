@@ -10,6 +10,9 @@ ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "webp"}
 
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
+# ✅ Ensure upload folder exists (VERY IMPORTANT for Render)
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
 
 def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -23,7 +26,7 @@ profile = {
     "location": "Chennai, India",
     "profile_img": "uploads/profile.jpg"
 }
-    
+
 skills = ["Python", "Flask", "HTML", "CSS", "JavaScript", "Bootstrap"]
 hobbies = ["Coding", "Gaming", "Learning New Tech", "Productivity"]
 
@@ -54,7 +57,6 @@ contact = {
     "location": "Chennai, India"
 }
 
-# ===================== BLOG DATA ===================== #
 blogs = [
     {
         "id": 1,
@@ -83,6 +85,7 @@ def home():
         projects=projects
     )
 
+
 @app.route("/about")
 def about():
     return render_template(
@@ -92,7 +95,6 @@ def about():
         education=education,
         contact=contact
     )
-
 
 
 @app.route("/blogs")
@@ -106,28 +108,22 @@ def blog_detail(id):
     if not post:
         return "Blog not found", 404
     return render_template("blog_detail.html", post=post)
- 
+
+
 @app.route("/add-blog", methods=["GET", "POST"])
 def add_blog():
     if request.method == "POST":
-        title = request.form.get("title")
-        content = request.form.get("content")
-
         blogs.append({
             "id": len(blogs) + 1,
-            "title": title,
-            "content": content,
-            "date": "2025-02-20",
-            "image": None
+            "title": request.form.get("title"),
+            "content": request.form.get("content"),
+            "date": "2025-02-20"
         })
-
         return redirect(url_for("blogs_page"))
 
     return render_template("add_blog.html")
 
 
-
-# ===================== PROJECT IMAGE UPLOAD (OPTIONAL) ===================== #
 @app.route("/upload-project/<int:id>", methods=["POST"])
 def upload_project(id):
     file = request.files.get("project_image")
@@ -143,7 +139,5 @@ def upload_project(id):
     return redirect(url_for("home"))
 
 
-# ===================== RUN ===================== #
-if __name__ == "__main__":
-    app.run()
-    app.run(host="0.0.0.0", port=5000, debug=True)
+# ❌ DO NOT use app.run() on Render
+# gunicorn will handle running the app
